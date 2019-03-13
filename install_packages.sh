@@ -136,6 +136,8 @@ cat << EOF >> $HOME/.gitconfig
 EOF
 
 # Unlimited history size
-sed -i 's/HISTSIZE=1000/HISTSIZE=/g' $HOME/.bashrc
-sed -i 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
+sed -i.bak 's/HISTSIZE=1000/HISTSIZE=/g' $HOME/.bashrc
+sed -i.bak 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
 
+# Rename default home folders
+sed -i.bak 's/\(\w*\)"$/\L\1/' $HOME/.config/user-dirs.dirs
