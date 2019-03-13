@@ -81,7 +81,10 @@ dpkg -i google-chrome-stable_current_amd64.deb
 rm -f google-chrome-stable_current_amd64.deb
 
 # Spotify
-snap install spotify
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+apt-get update
+apt-get install spotify-client
 
 # Nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
@@ -110,7 +113,7 @@ apt install workrave-gnome
 # Redshift
 apt-get install redshift-gtk
 
-# Bash aliases
+# .bashrc aliases, settings
 cat << EOF >> $HOME/.bashrc
 
 alias cls="clear"
@@ -121,6 +124,8 @@ alias gdc="git diff --cached"
 
 alias dp="docker ps"
 alias dpa="docker ps -a"
+
+export PROMPT_COMMAND='history -a' # append history when multiple terminals
 EOF
 
 # Git config
@@ -130,5 +135,7 @@ cat << EOF >> $HOME/.gitconfig
         ls = log --pretty --date='short' --format='%C(auto)%h - %<(16)%an - %<(10)%cd - %<(14)%ar -%m %s%d'
 EOF
 
-sed 's/HISTSIZE=1000/HISTSIZE=/g' $HOME/.bashrc
-sed 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
+# Unlimited history size
+sed -i 's/HISTSIZE=1000/HISTSIZE=/g' $HOME/.bashrc
+sed -i 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
+
