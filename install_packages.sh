@@ -50,6 +50,26 @@ cat << EOF > $HOME/.config/Code/User/keybindings.json
     {
         "key": "ctrl+shift+numpad_add",
         "command": "git.stageAll"
+    },
+    {
+        "key": "ctrl+alt+numpad2",
+        "command": "editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+alt+down",
+        "command": "-editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+numpad8",
+        "command": "editor.action.copyLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+alt+up",
+        "command": "-editor.action.copyLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
 EOF
@@ -81,7 +101,34 @@ usermod -aG docker ${USER}
 curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+
+# Workrave
+add-apt-repository -u ppa:rob-caelers/workrave
+apt update
+apt install workrave-gnome
+
+# Redshift
+apt-get install redshift-gtk
+
 # Bash aliases
-cat <<< EOF >>> $HOME/.bashrc
+cat << EOF >> $HOME/.bashrc
+
+alias cls="clear"
+
 alias gs="git status"
-alias gs="git status"
+alias gd="git diff"
+alias gdc="git diff --cached"
+
+alias dp="docker ps"
+alias dpa="docker ps -a"
+EOF
+
+# Git config
+cat << EOF >> $HOME/.gitconfig
+
+[alias]
+        ls = log --pretty --date='short' --format='%C(auto)%h - %<(16)%an - %<(10)%cd - %<(14)%ar -%m %s%d'
+EOF
+
+sed 's/HISTSIZE=1000/HISTSIZE=/g' $HOME/.bashrc
+sed 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
