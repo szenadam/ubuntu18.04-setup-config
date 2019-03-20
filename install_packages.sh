@@ -8,7 +8,8 @@ apt-get upgrade
 apt-get install -y \
     build-essential curl vim \
     tree git tmux gnome-tweak-tool \
-    apt-transport-https ca-certificates software-properties-common
+    apt-transport-https ca-certificates \
+    software-properties-common rename
 echo 'set -g default-terminal "screen-256color"' >> $HOME/-tmux.conf
 
 # VS Code
@@ -141,3 +142,11 @@ sed -i.bak 's/HISTFILESIZE=2000/HISTFILESIZE=/g' $HOME/.bashrc
 
 # Rename default home folders
 sed -i.bak 's/\(\w*\)"$/\L\1/' $HOME/.config/user-dirs.dirs
+
+# Rename all folders to lowercase
+# cd $HOME
+# rename 'y/A-Z/a-z/' *
+
+# Remove Ctrl+Alt+Down and Ctrl+Alt+Up workspace shortcuts from gnome keybindigs
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up  "['']"
