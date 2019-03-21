@@ -1,3 +1,7 @@
+## TODO Change ownership of folders created by sudo
+## TODO Git config
+
+
 #!/bin/bash
 
 # Update/Upgrade
@@ -10,7 +14,7 @@ apt-get install -y \
     tree git tmux gnome-tweak-tool \
     apt-transport-https ca-certificates \
     software-properties-common rename
-echo 'set -g default-terminal "screen-256color"' >> $HOME/-tmux.conf
+echo 'set -g default-terminal "screen-256color"' >> $HOME/.tmux.conf
 
 # VS Code
 wget https://update.code.visualstudio.com/latest/linux-deb-x64/stable -O vscode_stable.deb
@@ -85,11 +89,11 @@ rm -f google-chrome-stable_current_amd64.deb
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 apt-get update
-apt-get install spotify-client
+apt-get install -y spotify-client
 
 # Nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-apt install nodejs
+apt install -y nodejs
 
 # NPM packages
 npm i -g eslint
@@ -100,7 +104,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 apt update
 apt-cache policy docker-ce
-apt install docker-ce
+apt install -y docker-ce
 usermod -aG docker ${USER}
 curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
@@ -109,10 +113,10 @@ chmod +x /usr/local/bin/docker-compose
 # Workrave
 add-apt-repository -u ppa:rob-caelers/workrave
 apt update
-apt install workrave-gnome
+apt install -y workrave-gnome
 
 # Redshift
-apt-get install redshift-gtk
+apt-get install -y redshift-gtk
 
 # .bashrc aliases, settings
 cat << EOF >> $HOME/.bashrc
